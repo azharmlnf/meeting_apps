@@ -13,14 +13,14 @@
 | 3. Buat koleksi database di Appwrite: `users` (gabungkan profil & auth minimal data)                            | ✅      |
 | 4. Buat koleksi database di Appwrite: `meetings`                                                                | ✅      |
 | 5. Buat koleksi database di Appwrite: `notes`                                                                   | ✅      |
-| 6. Implementasi fungsi registrasi user baru dengan `account.create` (input email, password, fullname, username) | ❌      |
-| 7. Implementasi fungsi login dengan `account.createEmailSession` (email + password)                             | ❌      |
-| 8. Validasi input pada form registrasi dan login (email format, password kuat, username unik)                   | ❌      |
-| 9. Simpan data `fullname` dan `username` sebagai atribut tambahan pada dokumen `users`                          | ❌      |
+| 6. Implementasi fungsi registrasi user baru dengan `account.create` (input email, password, username) | ✅      |
+| 7. Implementasi fungsi login dengan `account.createEmailSession` (email + password)                             | ✅      |
+| 8. Validasi input pada form registrasi dan login (email format, password kuat, username unik)                   | ✅      |
+| 9. Simpan data `email` dan `username` sebagai atribut tambahan pada dokumen `users`                          | ✅      |
 
 **Total task = 9**
-**Task selesai = 5**
-**Persentase progress = (5/9) × 100% ≈ 55.6%**
+**Task selesai = 9**
+**Persentase progress = (9/9) × 100% ≈ 100%**
 
 ---
 
@@ -28,18 +28,18 @@
 
 | Task                                                                                                                  | Status |
 | --------------------------------------------------------------------------------------------------------------------- | ------ |
-| 1. Buat halaman UI untuk tambah meeting (form input `title`, `description`, `meetingDate`, `meetingTime`)             | ❌      |
-| 2. Buat halaman UI untuk edit meeting yang sudah dibuat                                                               | ❌      |
-| 3. Buat fungsi untuk hapus meeting dari database                                                                      | ❌      |
-| 4. Implementasi fungsi simpan meeting baru ke koleksi `meetings` di Appwrite                                          | ❌      |
-| 5. Implementasi fungsi update data meeting di Appwrite                                                                | ❌      |
-| 6. Implementasi fungsi hapus data meeting di Appwrite                                                                 | ❌      |
-| 7. Buat halaman daftar meeting yang hanya menampilkan meeting dengan `createdBy = userId login`                       | ❌      |
-| 8. Tambahkan validasi di backend/ frontend agar hanya bisa edit/hapus meeting milik sendiri (berdasarkan `createdBy`) | ❌      |
+| 1. Buat halaman UI untuk tambah meeting (form input `title`, `description`, `meetingDateTime`)             | ✅      |
+| 2. Buat halaman UI untuk edit meeting yang sudah dibuat                                                               | ✅      |
+| 3. Buat fungsi untuk hapus meeting dari database                                                                      | ✅      |
+| 4. Implementasi fungsi simpan meeting baru ke koleksi `meetings` di Appwrite                                          | ✅      |
+| 5. Implementasi fungsi update data meeting di Appwrite                                                                | ✅      |
+| 6. Implementasi fungsi hapus data meeting di Appwrite                                                                 | ✅      |
+| 7. Buat halaman daftar meeting yang hanya menampilkan meeting dengan `createdBy = userId login`                       | ✅      |
+| 8. Tambahkan validasi di backend/ frontend agar hanya bisa edit/hapus meeting milik sendiri (berdasarkan `createdBy`) | ✅      |
 
 **Total task = 8**
-**Task selesai = 0**
-**Persentase progress = 0%**
+**Task selesai = 8**
+**Persentase progress = 100%**
 
 ---
 
@@ -66,7 +66,7 @@
 
 | Task                                                                                        | Status |
 | ------------------------------------------------------------------------------------------- | ------ |
-| 1. Buat sistem perhitungan waktu reminder dari `meetingDate + meetingTime`                  | ❌      |
+| 1. Buat sistem perhitungan waktu reminder dari `meetingDateTime`                 | ❌      |
 | 2. Setup notifikasi lokal di Flutter (gunakan plugin seperti flutter\_local\_notifications) | ❌      |
 | 3. Buat pengaturan reminder untuk beberapa waktu: H-1 hari, hari-H, jam-H                   | ❌      |
 | 4. Munculkan pop-up notifikasi reminder saat waktu meeting tiba                             | ❌      |

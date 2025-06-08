@@ -114,7 +114,6 @@ Aplikasi ini merupakan sistem mobile mandiri yang memanfaatkan Appwrite sebagai 
 | Field     | Type   | Description                  | Notes                 |
 |-----------|--------|------------------------------|-----------------------|
 | userId    | string | Appwrite ID (primary key)    | Dari Appwrite Auth    |
-| fullname  | string | Nama lengkap pengguna        | Data tambahan profil  |
 | username  | string | Nama pengguna (unik)          | Harus unik            |
 | email     | string | Email pengguna                | Dari Appwrite Auth    |
 
@@ -127,8 +126,10 @@ Aplikasi ini merupakan sistem mobile mandiri yang memanfaatkan Appwrite sebagai 
 | meetingId   | string   | Appwrite ID (primary key)|                        |
 | title       | string   | Judul meeting            |                        |
 | description | string   | Deskripsi singkat        |                        |
-| meetingDate | datetime | Tanggal meeting          |                        |
-| meetingTime | time     | Waktu meeting            | Terpisah dari tanggal  |
+| meetingDateTime | datetime | Tanggal dan waktu meeting          |                        |
+| type | enum | online atau offline meeting          |                        |
+| place | string | lokasi asli atau  platform (zoom,gmeet)meeting          |
+| link | string | link lokasi(maps) atau link zoom meeting          |                        |                        |
 | createdBy   | string   | userId pembuat meeting   | FK → users.userId      |
 
 ---
@@ -195,40 +196,35 @@ graph TD
 
 ```mermaid
 erDiagram
-    "Users (Appwrite Auth)" {
-        string user_id PK "Appwrite $id, dikelola sistem Auth"
-        string email "Atribut bawaan Appwrite Auth"
-        string password "Dihash & dikelola Appwrite Auth"
+    users {
+        string userId PK "Primary Key, sama dengan Appwrite Auth $id"
+        string username "Unik"
+        string email
     }
 
-    UserProfiles {
-        string user_id PK, FK "Relasi 1-ke-1 dengan Users(user_id)"
-        string fullname "Data tambahan untuk user"
-        string username "Data tambahan untuk user"
+    meetings {
+        string meetingId PK "Appwrite Document $id"
+        string title
+        string description
+        datetime meetingDateTime "Disimpan sebagai ISO 8601 string"
+        enum type "online atau offline"
+        string place "lokasi asli atau platform(zoom,gmeet,)"
+        string link "link lokasi atau link zoom jika online"
+        string createdBy FK "Relasi ke users(userId)"
     }
 
-    Meetings {
-        string meeting_id PK "Appwrite $id"
-        string title "Judul meeting"
-        string description "Deskripsi singkat"
-        date meetingDate "Tanggal meeting "
-        time meetingTime "  waktu meeting"
-        string createdBy FK "Relasi ke UserProfiles(user_id)"
+    notes {
+        string noteId PK "Appwrite Document $id"
+        string content "Isi catatan (manual/transkrip)"
+        string summary "Ringkasan catatan"
+        string meetingId FK "Relasi ke meetings(meetingId)"
+        string author FK "Relasi ke users(userId)"
     }
 
-    Notes {
-        string note_id PK "Appwrite $id"
-        string meetingId FK "Relasi ke Meetings(meeting_id)"
-        string content_raw "Teks manual atau hasil transkripsi"
-        string content_summary "Hasil ringkasan otomatis"
-        string createdBy FK "Relasi ke UserProfiles(user_id)"
-    }
-
-    %% Mendefinisikan Hubungan
-    "Users (Appwrite Auth)" ||--|| UserProfiles : "memiliki profil"
-    UserProfiles ||--o{ Meetings : "membuat"
-    Meetings ||--o{ Notes : "memiliki"
-    UserProfiles ||--o{ Notes : "menulis"
+    %% Mendefinisikan Hubungan Antar Collection
+    users ||--o{ meetings : "membuat"
+    meetings ||--o{ notes : "memiliki"
+    users ||--o{ notes : "menulis"
 ```
 
 ---
